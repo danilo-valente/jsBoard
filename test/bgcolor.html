@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript" src="../src/jsBoard.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				var handle = new jsBoard();
+				handle.pressAny(function(e, keys) {
+					var r = this.pressing('R') ? 'F' : '0';
+					var g = this.pressing('G') ? 'F' : '0';
+					var b = this.pressing('B') ? 'F' : '0';
+					document.body.style.backgroundColor = '#' + r + g + b;
+				});
+			};
+		</script>
+	</head>
+	<body>
+		Press a combination of <code>R</code>,<code>G</code> and <code>B</code>
+	</body>
+</html>

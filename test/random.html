@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript" src="../src/jsBoard.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				var log = document.getElementById('log');
+				
+				var handle = jsBoard(document.body);
+				
+				/*
+				 * On press A+B
+				 */
+				var pressAB = handle.press('A-B', function () {
+					log.innerHTML = '1. Pressed A+B<br>' + log.innerHTML;
+				});
+				
+				/*
+				 * On release A+B
+				 */
+				var releaseAB = handle.release('A-B', function () {
+					log.innerHTML = '2. Released A+B<br>' + log.innerHTML;
+				});
+				
+				/*
+				 * Custom (On press numbers)
+				 */
+				var pressNumber = handle.press(
+					function (e, keys) {
+						for (var i = 0; i < keys.length; i++) {
+							if (keys[i] < 48 || keys[i] > 57) {
+								return false;
+							}
+						}
+						return true;
+					},
+					function (e, keys) {
+						var number = '';
+						for (var i = 0; i < keys.length; i++) {
+							number += String.fromCharCode(keys[i]);
+						}
+						log.innerHTML = '3. Pressed ' + number + '<br>' + log.innerHTML;
+					}
+				);
+				
+				/*
+				 * On press anything
+				 */
+				var pressAny = handle.pressAny(function (e, keys) {
+					var pressing = [];
+					for (var i = 0; i < keys.length; i++) {
+						pressing[i] = jsBoard.keyName(keys[i]);
+					}
+					log.innerHTML = '4. Pressed ' + pressing.join('+') + '<br>' + log.innerHTML;
+				});
+				
+				/*
+				 * On press ESC
+				 */
+				var pressESC = handle.press('ESC', function () {
+					handle.stop();
+					log.innerHTML = '5. Pressed ESC (service stopped)<br>' + log.innerHTML;
+				});
+			};
+		</script>
+		<style type="text/css">
+			#log {
+				font-family: monospace;
+				border: 1px solid #CCCCCC;
+				border-radius: 4px;
+				width: 400px;
+				height: 300px;
+				overflow: auto;
+				padding: 4px 8px;
+			}
+		</style>
+	</head>
+	<body>
+		<ol>
+			<li>Press A+B</li>
+			<li>Release A+B</li>
+			<li>Press a sequence of numeric digits</li>
+			<li>Anything</li>
+			<li>Press ESC (Stops the service)</li>
+		</ol>
+		<div id="log"></div>
+	</body>
+</html>
