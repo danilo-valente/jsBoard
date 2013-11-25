@@ -318,6 +318,7 @@
 		return new handle(target);
 	};
 	
+	jsBoard.version = '1.0.0';
 	jsBoard.keyboard = keyboard;
 	jsBoard.extend = function (extension) {
 		for (var key in extension) {
