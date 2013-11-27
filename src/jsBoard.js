@@ -205,7 +205,7 @@
 		
 		// just clears the array
 		this.reset = function () {
-			pressing = [];
+			pressing.length = 0;
 		};
 		
 		this.start = function () {
