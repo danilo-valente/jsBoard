@@ -171,7 +171,7 @@
 		};
 		
 		var fire = function (type, e) {
-			for (var i = 0; i < listeners[type].length; i++) {
+			for (var i = 0, len = listeners[type].length; i < len; i++) {
 				listeners[type][i].call(that, e, that.pressing());
 			}
 		};
@@ -225,14 +225,17 @@
 				stopped = true;
 			}
 		};
-		
+		var type = function (arg) {
+			return Object.prototype.toString.call(arg).slice(8, -1).toLowerCase();
+		}
 		var parseArg = function (keys) {
-			if (Object.prototype.toString.call(keys) === '[object String]') {
+			var keysType = type(keys);
+			if (keysType === 'string') {
 				keys = String.prototype.match.call(keys, /\w+/g);
-				for (var i = 0; i < keys.length; i++) {
+				for (var i = 0, len = keys.length; i < len; i++) {
 					keys[i] = keyboard[keys[i].toUpperCase()];
 				}
-			} else if (Object.prototype.toString.call(keys) !== '[object Array]') {
+			} else if (keysType !== 'array') {
 				keys = [keys];
 			}
 			return keys;
@@ -242,14 +245,14 @@
 			keys = parseArg(keys);
 			if (keys) {
 				if (!strict) {
-					for (var i = 0; i < keys.length; i++) {
+					for (var i = 0, len = keys.length; i < len; i++) {
 						return pressing.indexOf(keys[i]) !== -1;
 					}
 				}
 				if (pressing.length !== keys.length) {
 					return false;
 				}
-				for (var i = 0; i < keys.length; i++) {
+				for (var i = 0, len = keys.length; i < len; i++) {
 					if (pressing[i] !== keys[i]) {
 						return false;
 					}
@@ -283,7 +286,7 @@
 		
 		var on = function (etype, keys, action) {
 			var check;
-			if (Object.prototype.toString.call(keys) === '[object Function]') {
+			if (type(keys) === 'function') {
 				check = keys;
 			} else {
 				keys = parseArg(keys);
