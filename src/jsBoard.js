@@ -233,7 +233,11 @@
 			if (keysType === 'string') {
 				keys = String.prototype.match.call(keys, /\w+/g);
 				for (var i = 0, len = keys.length; i < len; i++) {
-					keys[i] = keyboard[keys[i].toUpperCase()];
+					var kid = keys[i].toUpperCase();
+					keys[i] = keyboard[kid];
+					if (keys[i] === undefined) {
+						throw new Error('Unrecognized key \'' + kid + '\'');
+					}
 				}
 			} else if (keysType !== 'array') {
 				keys = [keys];
