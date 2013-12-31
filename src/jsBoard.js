@@ -212,7 +212,6 @@
 			if (stopped) {
 				addEvent(target, 'keydown', press);
 				addEvent(target, 'keyup', release);
-				addEvent(target, 'mousedown', this.reset);
 				stopped = false;
 			}
 		}
@@ -221,7 +220,6 @@
 			if (!stopped) {
 				remEvent(target, 'keydown', press);
 				remEvent(target, 'keyup', release);
-				remEvent(target, 'mousedown', this.reset);
 				stopped = true;
 			}
 		};
