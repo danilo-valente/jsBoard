@@ -311,6 +311,12 @@
 			}, action);
 		};
 		
+		this.releaseAny = function (action) {
+			return this.release(function () {
+				return true;
+			}, action);
+		};
+		
 		// start the service
 		this.start();
 	};
