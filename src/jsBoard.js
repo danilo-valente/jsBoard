@@ -195,12 +195,12 @@
 		// fires 'release' listeners and pops released key
 		var release = function (e) {
 			e = e || window.event;
-			fire('release', e);
 			var key = getKey(e);
 			var i = pressing.indexOf(key);
 			if (i !== -1) {
 				pressing.splice(i, 1);
 			}
+			fire('release', e);
 		};
 		
 		// just clears the array
